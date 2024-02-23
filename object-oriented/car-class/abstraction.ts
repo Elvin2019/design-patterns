@@ -1,10 +1,10 @@
 abstract class Car {
-    make: string;
+    brand: string;
     model: string;
-    year: number;
+    private year: number;
 
-    constructor(make: string, model: string, year: number) {
-        this.make = make;
+    constructor(brand: string, model: string, year: number) {
+        this.brand = brand;
         this.model = model;
         this.year = year;
     }
@@ -12,8 +12,12 @@ abstract class Car {
     // Abstract method: must be implemented by subclasses
     abstract startEngine(): void;
 
+    isCarNew(): boolean {
+        return this.year >= 2020
+    }
+
     displayDetails(): void {
-        console.log(`Make: ${this.make}, Model: ${this.model}, Year: ${this.year}`);
+        console.log(`brand: ${this.brand}, Model: ${this.model}, Year: ${this.year}`);
     }
 }
 
@@ -33,10 +37,14 @@ class GasolineCar extends Car {
 
 //let car = new Car('Toyota', 'Camry', 2019); it is not possible to create an instance of the abstract class
 
-let myElectricCar = new ElectricCar('Tesla', 'Model S', 2020);
+let myElectricCar = new ElectricCar('Tesla', 'Model S', 2019);
 myElectricCar.startEngine(); // Outputs: Powering on the electric motor
-myElectricCar.displayDetails(); // Outputs: Make: Tesla, Model: Model S, Year: 2020
+myElectricCar.displayDetails(); // Outputs: brand: Tesla, Model: Model S, Year: 2020
+console.log(myElectricCar.isCarNew())
 
 let myGasolineCar = new GasolineCar('Ford', 'Mustang', 2021);
 myGasolineCar.startEngine(); // Outputs: Starting the gasoline engine
-myGasolineCar.displayDetails(); // Outputs: Make: Ford, Model: Mustang, Year: 2021
+myGasolineCar.displayDetails(); // Outputs: brand: Ford, Model: Mustang, Year: 2021
+console.log(myGasolineCar.isCarNew())
+
+export {}
